@@ -3,25 +3,24 @@ name: Deploy Website
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   validate-html:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout del código
         uses: actions/checkout@v3
 
+      - name: Instalar HTMLHint
+        run: npm install -g htmlhint
+
       - name: Validar HTML
-        uses: Cyb3r-Jak3/html5-validator-action@v1
-        with:
-          file: index.html
+        run: htmlhint index.html
 
   deploy:
     needs: validate-html
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout del código
         uses: actions/checkout@v3
