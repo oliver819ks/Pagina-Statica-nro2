@@ -12,11 +12,10 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v3
 
-      - name: Instalar HTMLHint
-        run: npm install -g htmlhint
-
       - name: Validar HTML
-        run: htmlhint index.html
+        uses: Cyb3r-Jak3/html5-validator-action@v1
+        with:
+          file: index.html
 
   deploy:
     needs: validate-html
@@ -28,5 +27,8 @@ jobs:
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v3
 
-      - name: Publicar en GitHub Pages
-        uses: actions/upload-pages-artifact@v2
+      - name: Subir archivos a GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+
+      - name: Desplegar en GitHub Pages
+        uses: actions/deploy-pages@v1
